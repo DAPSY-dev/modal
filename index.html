@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modal</title>
+    <style>
+      *,
+      *:before,
+      *:after {
+        box-sizing: inherit;
+      }
+      html {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+        line-height: 1.2;
+      }
+      button {
+        display: inline-block;
+        margin: 0;
+        padding: 8px 16px;
+        font-size: 16px;
+        color: white;
+        line-height: 1.2;
+        text-align: center;
+        text-decoration: none;
+        background-color: rebeccapurple;
+        border: 0;
+        border-radius: 4px;
+        vertical-align: middle;
+        cursor: pointer;
+      }
+    </style>
+    <link rel="stylesheet" href="./assets/modal.css" />
+  </head>
+  <body>
+    <button type="button" class="js-modal" data-id="modal1">Modal</button>
+
+    <div class="modal js-modal-box" id="modal1" aria-labelledby="modal1Label">
+      <div class="modal__box">
+        <div class="modal__cont" data-modal-cont-box>
+          <!-- Modal cont -->
+          <h2 id="modal1Label" style="margin: 0;">Modal</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis et illo dolore odio id, necessitatibus deserunt. Dolorum cum odit amet veniam facilis, debitis minus velit commodi assumenda ut molestias nulla a esse tempore. Ullam repudiandae minus in tenetur, ipsum id maiores a dignissimos modi possimus enim officiis provident dolor incidunt?</p>
+          <!-- <p>Eaque ducimus totam eius et mollitia perferendis, architecto similique fuga quis, eveniet repellat rem obcaecati, excepturi veritatis necessitatibus hic id ullam cum delectus? Nemo tempore doloremque sapiente hic deserunt cumque iste accusantium placeat perspiciatis debitis? Itaque cum necessitatibus eveniet, laboriosam est, commodi, quas quidem vitae dolor unde optio id similique.</p>
+          <p>Ipsa dignissimos omnis odit commodi deleniti aspernatur, vel quia soluta saepe doloribus quasi itaque earum quaerat, officiis deserunt alias possimus. Cum nesciunt placeat ad repellat autem minima omnis eveniet harum recusandae quod iure labore optio perferendis sunt, obcaecati, adipisci esse temporibus voluptate facilis voluptatum consequatur architecto itaque vitae non. Qui.</p>
+          <p>Quia voluptatum optio reprehenderit expedita veritatis facere quod cumque aperiam vitae saepe, voluptates veniam, dicta voluptatibus velit quam? Ipsum, itaque delectus? Harum quis veniam sunt ut officiis. Earum aspernatur voluptatum beatae! Tempore ratione fugiat veniam. Sed, repellat consequatur? Quam, reprehenderit facere. Porro, distinctio minima! Aliquid in doloremque nobis odit quis?</p>
+          <p>Doloribus molestiae dolore eveniet quibusdam, omnis fugiat blanditiis alias quisquam harum odit, tempora cum, ad rem fuga aliquam ut dolor. Nobis cum voluptatibus at, voluptates voluptas expedita facere possimus voluptate fuga suscipit dolor distinctio earum ipsam accusantium maxime eveniet. Hic asperiores a ea velit, aut debitis aperiam eveniet illo sit.</p>
+          <p>Earum voluptate at saepe ipsam consectetur maxime dolorum, voluptatum cum! Officia expedita illo exercitationem animi quisquam sed voluptatibus deleniti repellat quod fugiat suscipit sequi facere debitis praesentium inventore dolorem, dolore qui laboriosam iusto aliquam asperiores eos ratione minus. Quasi molestias cumque saepe possimus dignissimos delectus, magni labore voluptates ipsa tempore.</p>
+          <p>Rerum illo, nostrum atque ut, dolorum provident magnam libero modi ullam beatae dolorem explicabo assumenda! Ut est minus maiores id corrupti? Voluptas tenetur minus ad. Nesciunt inventore necessitatibus quas odio, eveniet recusandae dolorum aspernatur architecto saepe cupiditate sunt assumenda obcaecati ducimus? Mollitia amet consequuntur rem, vitae delectus velit rerum quis.</p>
+          <p>Modi recusandae porro mollitia, illum nisi quibusdam placeat. Sed molestiae nihil, cum, sint ad animi quam vitae quia obcaecati voluptatum non corporis qui mollitia ipsam blanditiis excepturi quod! Obcaecati assumenda error tenetur. Temporibus eveniet doloremque voluptas corrupti voluptate, architecto, corporis, cupiditate dolorum nemo maiores veniam. Officiis deleniti libero maiores vel.</p>
+          <p>Aperiam explicabo nesciunt cupiditate hic voluptas iusto voluptate magni suscipit dolor quod? Sequi optio illo accusantium suscipit numquam dolore rem laudantium eum animi sunt eius veritatis provident facere, amet fuga vero dignissimos quas in asperiores laboriosam ipsa ducimus sapiente quibusdam. Velit quae nobis molestiae ex ut. Exercitationem suscipit sit aut?</p>
+          <p>Nostrum facilis, cupiditate, quas impedit nisi expedita minima ipsum omnis nulla dignissimos cum doloribus, voluptatum accusamus! Fugiat hic mollitia dolorem vero ipsam ipsa officiis nam itaque totam quod earum nobis animi, impedit ex ducimus modi laudantium blanditiis. Explicabo deleniti reiciendis sit nisi, voluptate at cumque quasi doloribus architecto excepturi quia?</p> -->
+          <!--/ Modal cont -->
+          <button type="button" data-modal-close>Затвори</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      'use strict'
+
+      import Modal from './assets/modal.js'
+
+      window.addEventListener('DOMContentLoaded', () => {
+        window.modalObj = {}
+        const modalEls = [...document.querySelectorAll('.js-modal')]
+        if (modalEls.length > 0) {
+          for (const element of modalEls) {
+            if (element.classList.contains('is-init-modal')) {
+              console.error(`Modal is already initialized (id): ${element.dataset.id}`)
+            } else {
+              window.modalObj[element.dataset.id] = new Modal(element)
+            }
+          }
+        }
+
+        window.modalObj['modal1'].onOpen = () => {
+          console.log('Open')
+        }
+        window.modalObj['modal1'].onOpened = () => {
+          console.log('Opened')
+        }
+        window.modalObj['modal1'].onClose = () => {
+          console.log('Close')
+        }
+        window.modalObj['modal1'].onClosed = () => {
+          console.log('Closed')
+        }
+      })
+    </script>
+  </body>
+</html>
